@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "7650625486",
+    "project_id": "autowaste-41d5a",
+    "storage_bucket": "autowaste-41d5a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:7650625486:android:626c4ba43453ee25db4d9f",
+        "android_client_info": {
+          "package_name": "com.example.aws_flutter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAIxwpp2ZI7lpYzjXWISMYHC1P7alaOBQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
