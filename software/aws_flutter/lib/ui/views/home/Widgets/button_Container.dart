@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:aws_flutter/ui/common/ui_helpers.dart';
 import 'package:flutter/material.dart';
 
@@ -8,13 +6,13 @@ class ButtonContainer extends StatelessWidget {
   final bool isDisable;
   final String name;
   final String image;
- // final void Function()? onAutoTap;
+  // final void Function()? onAutoTap;
   const ButtonContainer({
     super.key,
     required this.ontap,
     required this.name,
     required this.image,
-    //this.onAutoTap, 
+    //this.onAutoTap,
     required this.isDisable,
   });
 

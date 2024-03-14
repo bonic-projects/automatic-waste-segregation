@@ -32,9 +32,8 @@ class MainApp extends StatelessWidget {
         StackedService.routeObserver,
       ],
       theme: ThemeData(
-        fontFamily: 'Poppins',
-        visualDensity: VisualDensity.adaptivePlatformDensity
-      ),
+          fontFamily: 'Poppins',
+          visualDensity: VisualDensity.adaptivePlatformDensity),
     );
   }
 }

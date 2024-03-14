@@ -7,7 +7,6 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class HomeViewModel extends ReactiveViewModel {
-  
   final _deviceDatabaseService = locator<DeviceDatabaseService>();
   final _bottomSheetService = locator<BottomSheetService>();
   // final _navigatonService = locator<NavigationService>();
@@ -18,8 +17,10 @@ class HomeViewModel extends ReactiveViewModel {
 
 //init method it calls initially when the device is ready
   void onModelReady() {
-    _deviceDatabaseService
-        .setDeviceData(DeviceMovement(direction: null, isAuto: true));
+    _deviceDatabaseService.setDeviceData(DeviceMovement(
+      direction: null,
+      isAuto: true,
+    ));
   }
 
   //methods for control Waste Bins

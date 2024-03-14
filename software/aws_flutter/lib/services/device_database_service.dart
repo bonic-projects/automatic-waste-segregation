@@ -29,13 +29,9 @@ class DeviceDatabaseService with ListenableServiceMixin {
 
   void setDeviceData(DeviceMovement data) {
     DatabaseReference dataRef = _db.ref('/devices/$dbCode/signal');
-    
-      
-      dataRef.update(data.toJson());
-      
-    
-      
-    
+
+    dataRef.update(data.toJson());
+
     //dataRef.update(data.toJson());
     //print(data.direction);
   }
