@@ -19,7 +19,7 @@ class HomeView extends StackedView<HomeViewModel> {
   ) {
     return Scaffold(
         appBar: AppBar(
-          actions: [
+          actions: const [
             Row(
               children: [IsOnlineWidget(), horizontalSpaceSmall],
             )
