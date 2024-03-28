@@ -1,5 +1,4 @@
-import 'dart:developer';
-
+import 'package:aws_flutter/app/app.logger.dart';
 import 'package:aws_flutter/models/device_data.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:stacked/stacked.dart';
@@ -7,23 +6,26 @@ import 'package:stacked/stacked.dart';
 const dbCode = "bbVmnG41eZfKzvlIOPr9d7RJQ8w2";
 
 class DeviceDatabaseService with ListenableServiceMixin {
+  final log = getLogger('DatabaseService');
   final FirebaseDatabase _db = FirebaseDatabase.instance;
 
-  DeviceMovement? _node;
-  DeviceMovement? get node => _node;
+  DeviceReading? _node;
+  DeviceReading? get node => _node;
 
-  void setUpNodeListening() {
-    DatabaseReference startCountRef = _db.ref('/devices/$dbCode/signal');
-
-    try {
-      startCountRef.onValue.listen((DatabaseEvent event) {
+  void setupNodeListening() async{
+    DatabaseReference starCountRef = _db.ref('/devices/$dbCode/signal/reading');
+       log.i("R ${starCountRef.key}");
+    try  {
+     starCountRef.onValue.listen((DatabaseEvent event) {
+          log.i("Reading..");
         if (event.snapshot.exists) {
-          _node = DeviceMovement.fromMap(event.snapshot.value as Map);
+          _node = DeviceReading.fromMap(event.snapshot.value as Map);
+              log.v(_node?.dry ?? "dry"); //data['time']
           notifyListeners();
         }
       });
     } catch (e) {
-      log(e.toString());
+        log.e("Error: $e");
     }
   }
 

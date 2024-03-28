@@ -32,5 +32,6 @@ import 'package:aws_flutter/services/device_database_service.dart';
     StackedDialog(classType: InfoAlertDialog),
     // @stacked-dialog
   ],
+  logger: StackedLogger(),
 )
 class App {}

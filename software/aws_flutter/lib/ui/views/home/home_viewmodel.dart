@@ -1,5 +1,6 @@
 import 'package:aws_flutter/app/app.bottomsheets.dart';
 import 'package:aws_flutter/app/app.locator.dart';
+import 'package:aws_flutter/app/app.logger.dart';
 import 'package:aws_flutter/models/device_data.dart';
 import 'package:aws_flutter/services/device_database_service.dart';
 import 'package:aws_flutter/ui/common/app_strings.dart';
@@ -7,6 +8,8 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class HomeViewModel extends ReactiveViewModel {
+  final log = getLogger('HomeViewModel');
+
   final _deviceDatabaseService = locator<DeviceDatabaseService>();
   final _bottomSheetService = locator<BottomSheetService>();
   // final _navigatonService = locator<NavigationService>();
@@ -15,12 +18,18 @@ class HomeViewModel extends ReactiveViewModel {
   List<ListenableServiceMixin> get listenableServices =>
       [_deviceDatabaseService];
 
+  DeviceReading? get node => _deviceDatabaseService.node;
+
 //init method it calls initially when the device is ready
-  void onModelReady() {
+  HomeViewModel() {
+    setBusy(true);
+    _deviceDatabaseService.setupNodeListening();
+    log.i(node);
     _deviceDatabaseService.setDeviceData(DeviceMovement(
       direction: null,
       isAuto: true,
     ));
+    setBusy(false);
   }
 
   //methods for control Waste Bins

@@ -8,87 +8,139 @@ import 'package:stacked/stacked.dart';
 
 import 'home_viewmodel.dart';
 
-class HomeView extends StackedView<HomeViewModel> {
-  const HomeView({Key? key}) : super(key: key);
+class HomeView extends StatelessWidget {
+  const HomeView({super.key});
 
   @override
-  Widget builder(
-    BuildContext context,
-    HomeViewModel viewModel,
-    Widget? child,
-  ) {
-    return Scaffold(
-        appBar: AppBar(
-          actions: const [
-            Row(
-              children: [IsOnlineWidget(), horizontalSpaceSmall],
-            )
-          ],
-        ),
-        body: Container(
-          padding: const EdgeInsets.all(20),
-          child: Center(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+  Widget build(BuildContext context) {
+    return ViewModelBuilder<HomeViewModel>.reactive(
+      //onViewModelReady: (viewModel) => viewModel.onModelReady(),
+      builder: (context, model, child) {
+        return Scaffold(
+            appBar: AppBar(
+              actions: const [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    const Text(
-                      'Automatic',
-                      style: TextStyle(color: Colors.black),
-                    ),
-                    horizontalSpaceTiny,
-                    AutoSwitch(
-                      isAuto: viewModel.isAuto,
-                      onClick: viewModel.autoButton,
-                    )
-                  ],
-                ),
-                ButtonContainer(
-                  ontap: () => viewModel.isAuto
-                      ? viewModel.showBottomSheet()
-                      : viewModel.isBinMovement('d'),
-
-                  //viewModel.isBinMovement('d'),
-                  image: 'assets/images/dry.png',
-                  name: 'Dry',
-                  isDisable: viewModel.isAuto,
-                ),
-                verticalSpaceMedium,
-                ButtonContainer(
-                  ontap: () => viewModel.isAuto
-                      ? viewModel.showBottomSheet()
-                      : viewModel.isBinMovement('w'),
-                  image: 'assets/images/humidity.png',
-                  name: 'Wet',
-                  isDisable: viewModel.isAuto,
-                ),
-                verticalSpaceMedium,
-                ButtonContainer(
-                  ontap: () => viewModel.isAuto
-                      ? viewModel.showBottomSheet()
-                      : viewModel.isBinMovement('m'),
-                  image: 'assets/images/metal.png',
-                  name: 'Metal',
-                  isDisable: viewModel.isAuto,
-                ),
+                  children: [IsOnlineWidget(), horizontalSpaceSmall],
+                )
               ],
             ),
-          ),
-        ));
-  }
+            body: model.node?.wet == null
+                ? Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CircularProgressIndicator(
+                        color: Colors.blueGrey[600],
+                      ),
+                      verticalSpaceSmall,
+                      Text(
+                        "Fetching...",
+                        style: TextStyle(fontSize: 24, color: Colors.blueGrey[700]),
+                      )
+                    ],
+                  ))
+                : Container(
+                    padding: const EdgeInsets.all(20),
+                    child: Center(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          // FAProgressBar(
+                          //   currentValue: 70,
+                          //   progressColor: Colors.blueAccent,
+                          //   verticalDirection: VerticalDirection.up,
+                          //   backgroundColor: Colors.black,
+                          // ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              const Text(
+                                'Automatic',
+                                style: TextStyle(color: Colors.black),
+                              ),
+                              horizontalSpaceTiny,
+                              AutoSwitch(
+                                isAuto: model.isAuto,
+                                onClick: model.autoButton,
+                              )
+                            ],
+                          ),
+                          verticalSpaceLarge,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                children: [
+                                  ButtonContainer(
+                                    value: model.node!.dry,
+                                    ontap: () => model.isAuto
+                                        ? model.showBottomSheet()
+                                        : model.isBinMovement('d'),
 
-  @override
-  HomeViewModel viewModelBuilder(
-    BuildContext context,
-  ) =>
-      HomeViewModel();
-
-  @override
-  void onViewModelReady(HomeViewModel viewModel) {
-    viewModel.onModelReady();
-    super.onViewModelReady(viewModel);
+                                    //model.isBinMovement('d'),
+                                    image: 'assets/images/dry.png',
+                                    name: 'Dry',
+                                    isDisable: model.isAuto,
+                                  ),
+                                  // FAProgressBar(
+                                  //   direction: Axis.vertical,
+                                  //   size: 20,
+                                  //   backgroundColor: Colors.blue,
+                                  //   progressColor: Colors.yellow,
+                                  //   currentValue: 60,
+                                  // )
+                                ],
+                              ),
+                              //  horizontalSpaceSmall,
+                              Column(
+                                children: [
+                                  ButtonContainer(
+                                    value: model.node!.wet,
+                                    ontap: () => model.isAuto
+                                        ? model.showBottomSheet()
+                                        : model.isBinMovement('w'),
+                                    image: 'assets/images/humidity.png',
+                                    name: 'Wet',
+                                    isDisable: model.isAuto,
+                                  ),
+                                  // FAProgressBar(
+                                  //   direction: Axis.vertical,
+                                  //   size: 20,
+                                  //   backgroundColor: Colors.blue,
+                                  //   progressColor: Colors.yellow,
+                                  //   currentValue: 60,
+                                  // )
+                                ],
+                              ),
+                              //horizontalSpaceSmall,
+                              Column(
+                                children: [
+                                  ButtonContainer(
+                                    value: model.node!.metal,
+                                    ontap: () => model.isAuto
+                                        ? model.showBottomSheet()
+                                        : model.isBinMovement('m'),
+                                    image: 'assets/images/metal.png',
+                                    name: 'Metal',
+                                    isDisable: model.isAuto,
+                                  ),
+                                  //   FAProgressBar(
+                                  //   direction: Axis.vertical,
+                                  //   size: 20,
+                                  //   backgroundColor: Colors.blue,
+                                  //   progressColor: Colors.yellow,
+                                  //   currentValue: 60,
+                                  // )
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ));
+      },
+      viewModelBuilder: () => HomeViewModel(),
+    );
   }
 }
