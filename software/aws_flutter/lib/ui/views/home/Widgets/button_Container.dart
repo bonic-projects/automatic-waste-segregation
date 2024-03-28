@@ -48,24 +48,21 @@ class ButtonContainer extends StatelessWidget {
                 ),
               )),
         ),
+        verticalSpaceSmall,
         VerticalBarIndicator(
+          headerStyle: const TextStyle(fontSize: 18, color: Colors.blueGrey),
           animationDuration: const Duration(seconds: 2),
           percent: _dobval,
           height: 150,
           width: 30,
           color: const [
-            Color.fromARGB(255, 241, 3, 3),
+            Color.fromARGB(214, 195, 7, 7),
             Color.fromARGB(255, 232, 109, 8),
+            Color.fromARGB(255, 12, 222, 47),
           ],
           header: '${value * 10}%',
           footer: name,
         )
-        // FAProgressBar(
-        //   direction: Axis.vertical,
-        //   backgroundColor: Colors.blue,
-        //   changeProgressColor: Colors.white,
-        //   currentValue: 60,
-        // )
       ],
     );
   }
