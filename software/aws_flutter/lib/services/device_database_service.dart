@@ -13,7 +13,7 @@ class DeviceDatabaseService with ListenableServiceMixin {
   DeviceReading? get node => _node;
 
   void setupNodeListening() async{
-    DatabaseReference starCountRef = _db.ref('/devices/$dbCode/signal/reading');
+    DatabaseReference starCountRef = _db.ref('/devices/$dbCode/reading');
        log.i("R ${starCountRef.key}");
     try  {
      starCountRef.onValue.listen((DatabaseEvent event) {
@@ -30,7 +30,7 @@ class DeviceDatabaseService with ListenableServiceMixin {
   }
 
   void setDeviceData(DeviceMovement data) {
-    DatabaseReference dataRef = _db.ref('/devices/$dbCode/signal');
+    DatabaseReference dataRef = _db.ref('/devices/$dbCode/data');
 
     dataRef.update(data.toJson());
 

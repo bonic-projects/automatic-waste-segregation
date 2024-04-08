@@ -2,14 +2,11 @@
 class DeviceMovement {
   String? direction;
   bool isAuto;
-  DateTime? lastSeen;
-
   //
 
   DeviceMovement({
     required this.direction,
     required this.isAuto,
-    this.lastSeen,
   });
 
 //
@@ -17,7 +14,6 @@ class DeviceMovement {
     return DeviceMovement(
       direction: data['direction'],
       isAuto: data['isAuto'] ?? false,
-      lastSeen: DateTime.fromMillisecondsSinceEpoch(data['ts']),
     );
   }
 
@@ -25,14 +21,12 @@ class DeviceMovement {
   Map<String, dynamic> toJson() => {
         'direction': direction,
         'isAuto': isAuto,
-        'ts': lastSeen,
       };
 }
 
 /// Device Sensor Reading model
 class DeviceReading {
   int dry;
-
   int metal;
   int wet;
   DateTime lastSeen;
